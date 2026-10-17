@@ -77,7 +77,7 @@ const ITEMS={sword:['⚔️','龍淵聖劍','刪除兩個錯誤選項'],bow:['�
 const DIFF={easy:'簡單試煉',medium:'進階挑戰',hard:'高手決戰'};
 let st={view:'login',mode:'student',player:null,role:'student',adminToken:'',maps:MAP_FALLBACK,open:{},ranking:{all:[]},board:'all',boardKind:'map',boardMap:1,run:null,map:4,feedback:null,sideChoice:'sword',sidebar:false,teacherFilter:'PUBLIC',teacherData:null,busy:false,studentToken:''};
 let alarmed=false,clockSkew=0,audio=null,musicEnabled=false,musicAutoStart=true,sfxEnabled=true,volume=.48,musicTimer=null,themeStep=0;try{const ap=JSON.parse(localStorage.getItem('guoxue_audio_prefs')||'{}');musicAutoStart=ap.music!==false;sfxEnabled=ap.sfx!==false;volume=typeof ap.volume==='number'?ap.volume:.48;}catch(e){};
-const EDGE_URL='__NEW_SUPABASE_FUNCTION_URL__'; // 部署時填入新專案 guoxue-arcade-api 網址（不得使用原專案）
+const EDGE_URL='https://wwvwyagbwvpliffmsqoa.supabase.co/functions/v1/guoxue-arcade-api'; // 部署時填入新專案 guoxue-arcade-api 網址（不得使用原專案）
 const API={async call(method,...args){
   if(EDGE_URL.startsWith('__'))throw Error('網站尚未連接新的 Supabase 專案，請管理者完成部署設定。');
   const ctrl=new AbortController();
