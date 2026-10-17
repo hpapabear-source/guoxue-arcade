@@ -116,8 +116,8 @@ const medals=()=>st.player?Object.keys(st.player.cleared||{}).filter(n=>Number(n
 function currentMap(){return st.maps.find(x=>x.id===st.map)||MAP_FALLBACK[st.map-1]}
 function isPlayable(map){if(st.role==='teacher')return true;if(!st.open[map])return false;return map!==8||medals()===7}
 function rankMini(rows){return rows.slice(0,4).map((u,i)=>`<div class="mini-rank"><span class="rank-circle ${i===0?'top1':''}">${i===0?'🏆':i+1}</span><b>${esc(u.name)}</b><strong>${Number(u.score||0).toLocaleString()} 分</strong></div>`).join('')||'<p class="muted">目前還沒有成績，等你來挑戰！</p>'}
-function loginHTML(){const cached=savedGuestToken();return `<div class="login-screen"><section class="login-story"><div class="brand"><span class="brand-emblem">📖</span><span>國學勇者傳說</span></div><div><div class="story-kicker">PUBLIC ARCADE · CLASSICAL LITERATURE</div><h1>七境冒險<br>全民挑戰</h1><p>輸入暱稱，開始國學冒險。挑戰地圖最高分，收集神器，爭奪榮耀榜席。</p><div class="login-decoration"><span class="mountain"></span><span class="mountain"></span><span class="mountain"></span></div><span class="castle-emoji">🏰</span></div><small>全民開放 · 手機可玩 · 暱稱可重複</small></section><div class="login-form-area"><div class="login-panel"><div class="kicker">ENTER THE ARCADE</div><h2>勇者入口</h2><p class="sub">暱稱可以重複；同一瀏覽器會自動保留勇者身分、闖關與高分紀錄。</p><div class="seg"><button data-action="login-tab" data-value="student" class="${st.mode==='student'?'on':''}">⚔️ 勇者入口</button><button data-action="login-tab" data-value="teacher" class="${st.mode==='teacher'?'on':''}">🛡️ 管理者後台</button></div>${st.mode==='student'?`${cached?'<button class="btn gold full" type="button" style="margin-bottom:13px" data-action="guest-continue">↩ 繼續這台裝置的勇者冒險</button>':''}<form id="studentForm"><label class="f-label">冒險暱稱<input name="name" maxlength="12" required placeholder="例：詩仙小劍客" autocomplete="nickname"></label><button class="btn primary full login-submit" type="submit">⚔️ ${cached?'建立另一位新勇者':'建立勇者，開始冒險'}</button></form><div class="info">每位新勇者都有獨立進度，即使暱稱相同也會視為不同玩家。更換裝置、瀏覽器，或清除本站瀏覽資料後，可能無法恢復原有勇者身分與遊戲紀錄。</div>`:`<form id="teacherForm"><label class="f-label">管理者密碼<input type="password" name="password" required placeholder="輸入管理者密碼" autocomplete="current-password"></label><button class="btn primary full login-submit" type="submit">🛡 開啟管理室</button></form><div class="info">可設定地圖開放、查看近期勇者、調整暱稱、重置或刪除玩家紀錄。題目可在新 Supabase 的 Table Editor → gx_questions 修改。</div>`}<div class="login-audio"><button type="button" class="btn light full" data-action="music">${musicEnabled?'🔊 配樂播放中・點我關閉':'♫ 試聽／開啟冒險配樂'}</button><small>登入後啟動配樂；手機第一次播放需先點擊畫面。</small></div><p class="hint" style="text-align:center;margin:19px 0 0">每張地圖支線最多2次　·　答錯3題重開該地圖</p></div></div></div>`}
-function audioToolbar(){return `<div class="toolbar"><button class="btn ghost small" data-action="music">${musicEnabled?'♫ 配樂已開':'♫ 開啟配樂'}</button><button class="btn ghost small" data-action="sfx">${sfxEnabled?'🔊 音效開':'🔇 音效關'}</button><label>音量 <input aria-label="音量" id="vol" type="range" min="0" max="100" value="${Math.round(volume*100)}"></label></div>`}
+function loginHTML(){const cached=savedGuestToken();return `<div class="login-screen"><section class="login-story"><div class="brand"><span class="brand-emblem">📖</span><span>國學勇者傳說</span></div><div><div class="story-kicker">PUBLIC ARCADE · CLASSICAL LITERATURE</div><h1>七境冒險<br>全民挑戰</h1><p>輸入暱稱，開始國學冒險。挑戰地圖最高分，收集神器，爭奪榮耀榜席。</p><div class="login-decoration"><span class="mountain"></span><span class="mountain"></span><span class="mountain"></span></div><span class="castle-emoji">🏰</span></div><small>全民開放 · 手機可玩 · 暱稱可重複</small></section><div class="login-form-area"><div class="login-panel"><div class="kicker">ENTER THE ARCADE</div><h2>勇者入口</h2><p class="sub">暱稱可以重複；同一瀏覽器會自動保留勇者身分、闖關與高分紀錄。</p><div class="seg"><button data-action="login-tab" data-value="student" class="${st.mode==='student'?'on':''}">⚔️ 勇者入口</button><button data-action="login-tab" data-value="teacher" class="${st.mode==='teacher'?'on':''}">🛡️ 管理者後台</button></div>${st.mode==='student'?`${cached?'<button class="btn gold full" type="button" style="margin-bottom:13px" data-action="guest-continue">↩ 繼續這台裝置的勇者冒險</button>':''}<form id="studentForm"><label class="f-label">冒險暱稱<input name="name" maxlength="12" required placeholder="例：詩仙小劍客" autocomplete="nickname"></label><button class="btn primary full login-submit" type="submit">⚔️ ${cached?'建立另一位新勇者':'建立勇者，開始冒險'}</button></form>`:`<form id="teacherForm"><label class="f-label">管理者密碼<input type="password" name="password" required placeholder="輸入管理者密碼" autocomplete="current-password"></label><button class="btn primary full login-submit" type="submit">🛡 開啟管理室</button></form><div class="info">可設定地圖開放、查看近期勇者、調整暱稱、重置或刪除玩家紀錄。題目可在新 Supabase 的 Table Editor → gx_questions 修改。</div>`}<div class="login-audio"><button type="button" class="btn light full" data-action="music">${musicEnabled?'♫ 冒險曲播放中・點我關閉':'▶ 播放勇者冒險曲'}</button><small>點擊播放即可試聽；若手機無聲，請調高媒體音量，或使用 Safari 開啟。</small></div><p class="hint" style="text-align:center;margin:19px 0 0">每張地圖支線最多2次　·　答錯3題重開該地圖</p></div></div></div>`}
+function audioToolbar(){return `<div class="toolbar"><button class="btn ghost small" data-action="music">${musicEnabled?'♫ 冒險曲播放中':'▶ 播放冒險曲'}</button><button class="btn ghost small" data-action="sfx">${sfxEnabled?'🔊 音效開':'🔇 音效關'}</button><label>音量 <input aria-label="音量" id="vol" type="range" min="0" max="100" value="${Math.round(volume*100)}"></label></div>`}
 function shellHTML(inner){const teacher=st.role==='teacher';let p=st.player;return `<div class="shell"><aside class="side"><div class="brand"><span class="brand-emblem">📖</span>國學勇者傳說</div><button class="nav ${st.view==='map'?'active':''}" data-action="nav" data-value="map">🗺️ 冒險地圖</button><button class="nav ${st.view==='board'?'active':''}" data-action="nav" data-value="board">🏆 勇者排行榜</button>${teacher?`<button class="nav ${st.view==='teacher'?'active':''}" data-action="nav" data-value="teacher">🛡 管理者後台</button>`:''}<button class="nav" data-action="logout">↩ 返回登入</button><div class="profile-mini"><small>${teacher?'管理員':'勇者檔案'}</small><b>${esc(teacher?'管理者試玩':p?.name)}</b><small>${teacher?'試玩紀錄不納入排行':'全民挑戰 · 訪客勇者'}</small></div></aside><main class="main"><header class="top"><div><small>THE SEVEN REALMS · CLASSICAL JOURNEY</small></div><div class="top-user"><button class="btn ghost small top-music" data-action="music" aria-label="切換背景配樂">${musicEnabled?'♫ 配樂開':'♫ 配樂關'}</button>${!teacher?`<span class="chip">🪙 ${p?.coins||0}</span><span class="chip">🎟️ ${p?.tickets||0}</span><span class="chip">🏅 ${medals()}/7</span>`:`<span class="chip">🛡️ 管理者模式</span>`}</div></header>${inner}${audioToolbar()}</main></div>`}
 function mapHTML(){const p=st.player;const ranks=st.ranking.all||[];return shellHTML(`<div class="h-head"><div class="kicker">CHAPTER SELECT · ADVENTURE MAP</div><h1>🗺️ 七境冒險地圖</h1><p>前七張地圖各有12道正式考驗與獨立支線，任選喜歡的國學單元自由挑戰；失去三顆愛心須重新闖關。集齊七境通關徽章，待管理者開放後即可挑戰終極魔王城。</p></div><div class="columns"><div class="card map-board"><div class="river"></div><div class="pathline"></div><div class="map-grid">${st.maps.map(m=>{let done=p?.cleared?.[String(m.id)]||false,access=isPlayable(m.id),boss=m.id===8;return `<button class="realm ${boss?'boss':''} ${done?'done':''} ${access?'available':'locked'}" data-action="map" data-value="${m.id}" ${access?'':'disabled'}><span class="r-icon">${esc(access?m.icon:'🔒')}</span><strong>${esc(m.name)}</strong><small>${done?'✓ 已通關，可刷高分':access?`${String(m.id).padStart(2,'0')} · 點擊挑戰`:'尚未解鎖'}</small></button>`}).join('')}</div></div><div class="aside-stack"><div class="card card-pad"><div class="kicker">YOUR LEGEND</div><h3 class="aside-title">${st.role==='teacher'?'🛡 管理者試玩':'🏅 勇者成就'}</h3><div class="big-score">${Number(p?.total||0).toLocaleString()} <span style="font-size:13px;color:#8b9581">總積分</span></div><div class="progress" style="margin:16px 0"><span style="width:${medals()/7*100}%"></span></div><div class="statrow"><span>已完成地圖</span><b>${medals()} / 7</b></div><div class="statrow"><span>魔王關最高分</span><b>${p?.boss||0}</b></div><div class="statrow"><span>改名券</span><b>🎟️ ${p?.tickets||0}</b></div>${st.role!=='teacher'?`<button class="btn gold full" style="margin-top:17px" data-action="rename-open" ${p?.tickets?'':'disabled'}>🎟️ 使用改名券</button>`:'<p class="muted">管理者可進入各張地圖試玩，成績不計入公開排行榜。</p>'}</div><div class="card card-pad"><h3 class="aside-title">🏆 全站排行速報</h3>${rankMini(ranks)}<button class="btn ghost full" style="margin-top:15px" data-action="nav" data-value="board">查看完整排行榜 →</button></div></div></div>`)}
 function stageName(q,map,index){if(map===8)return index<5?'第一階段 · 魔王甦醒':index<10?'第二階段 · 知識試煉':'第三階段 · 終焉決戰';return DIFF[q?.difficulty]||'闖關挑戰'}
@@ -178,16 +178,128 @@ async function adminAct(kind,data){await call('uiAdminAction',st.adminToken,kind
 function stopTimer(){/* 視覺計時器由定時檢查目前狀態控制 */}
 let timedOut=false;function refreshTimer(){const r=st.run,q=r?.question;if(!q||r.status!=='playing'||st.dialog||st.busy)return;const elapsed=Math.max(0,Math.floor((Date.now()-clockSkew-q.started)/1000)),remain=Math.max(0,q.limits.seconds-elapsed);const num=$('#sec'),fill=$('#timerfill');if(num){num.textContent=remain;num.classList.toggle('danger',remain<=10)}if(fill)fill.style.width=(remain/q.limits.seconds*100)+'%';if(remain===0&&!st.busy&&!timedOut){timedOut=true;submit(-1).finally(()=>{timedOut=false})}}
 function audioStore(){try{localStorage.setItem('guoxue_audio_prefs',JSON.stringify({music:musicAutoStart,sfx:sfxEnabled,volume}))}catch(e){}}
-function ensureAudio(){if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;audio=new AC()}if(audio.state==='suspended')audio.resume();return true}
-const tunes={map:[[0,3,7,10],[0,5,7,12],[-2,2,5,9]],game:[[0,4,7,12],[2,5,9,12],[-1,3,7,10]],boss:[[0,3,6,9],[-2,1,6,10],[-4,0,3,8]]};
-function playTone(freq,dur=.16,type='triangle',gain=.13,delay=0){if(!audio)return;const t=audio.currentTime+delay,osc=audio.createOscillator(),g=audio.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0003,gain*volume),t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+dur);osc.connect(g);g.connect(audio.destination);osc.start(t);osc.stop(t+dur+.02)}
-function tone(what){if(!sfxEnabled||!ensureAudio())return;const notes={correct:[[523,0],[659,.09],[784,.18]],wrong:[[350,0],[261,.1]],sword:[[685,0],[370,.11]],bow:[[330,0],[880,.18]],heal:[[524,0],[660,.08],[988,.16]],magic:[[660,0],[880,.14],[1048,.28]],start:[[392,0],[523,.1],[659,.2]]}[what]||[];notes.forEach(([f,t])=>playTone(f,.23,'sine',.21,t))}
-function musicTick(){if(!musicEnabled||!ensureAudio())return;const key=st.view==='game'?(st.run?.map===8?'boss':'game'):'map';const pat=tunes[key],notes=pat[Math.floor(themeStep/4)%pat.length],offset=notes[themeStep%4];const base=key==='boss'?185:key==='game'?220:196;playTone(base*2**(offset/12),.36,'triangle',.08);if(themeStep%4===0)playTone(base/2,.7,'sine',.035);themeStep++}
-function beginMusicFromGesture(){if(musicEnabled||!musicAutoStart)return;if(!ensureAudio()){musicAutoStart=false;toast('這個瀏覽器不支援播放音樂',true);return}musicEnabled=true;themeStep=0;musicTick();clearInterval(musicTimer);musicTimer=setInterval(musicTick,470);audioStore()}
-function musicSwitch(){if(musicEnabled){musicEnabled=false;musicAutoStart=false;clearInterval(musicTimer);musicTimer=null}else{musicAutoStart=true;beginMusicFromGesture()}audioStore();render()}
+function ensureAudio(){
+  if(!audio){
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return false;
+    try{audio=new AC()}catch(e){console.warn('無法初始化音效',e);return false}
+  }
+  if(audio.state==='suspended'||audio.state==='interrupted'){
+    try{const promise=audio.resume();if(promise?.catch)promise.catch(()=>{})}catch(e){}
+  }
+  return true;
+}
+function playTone(freq,dur=.16,type='triangle',gain=.13,delay=0){
+  if(!audio||audio.state!=='running')return;
+  const t=audio.currentTime+delay,osc=audio.createOscillator(),g=audio.createGain();
+  osc.type=type;osc.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(.0001,t);
+  g.gain.exponentialRampToValueAtTime(Math.max(.0003,gain*volume),t+.012);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  osc.connect(g);g.connect(audio.destination);osc.start(t);osc.stop(t+dur+.02);
+}
+function tone(what){
+  if(!sfxEnabled||!ensureAudio())return;
+  const notes={correct:[[523,0],[659,.09],[784,.18]],wrong:[[350,0],[261,.1]],sword:[[685,0],[370,.11]],bow:[[330,0],[880,.18]],heal:[[524,0],[660,.08],[988,.16]],magic:[[660,0],[880,.14],[1048,.28]],start:[[392,0],[523,.1],[659,.2]]}[what]||[];
+  notes.forEach(([f,t])=>playTone(f,.23,'sine',.21,t));
+}
+// 原創八小節輕快勇者旋律：D大調、144 BPM，搭配分解和弦、低音及鼓點。
+const ADVENTURE_BPM=144,ADVENTURE_STEP_MS=60000/ADVENTURE_BPM/2;
+const ADVENTURE_MELODY=[
+  [74,null,78,81,79,78,76,null],
+  [79,81,83,null,81,79,78,null],
+  [78,81,86,83,81,78,76,null],
+  [76,78,81,83,81,78,76,73],
+  [74,76,78,81,83,81,78,null],
+  [79,78,76,74,79,81,83,null],
+  [76,78,79,81,83,81,79,78],
+  [81,78,76,73,74,null,74,null]
+];
+const ADVENTURE_CHORDS=[
+  [50,54,57],[55,59,62],[47,50,54],[45,49,52],
+  [50,54,57],[55,59,62],[52,55,59],[45,49,52]
+];
+const noteHz=n=>440*Math.pow(2,(n-69)/12);
+let rhythmNoise=null,musicStarting=false;
+function musicPerc(kind){
+  if(!audio||audio.state!=='running')return;
+  const t=audio.currentTime,g=audio.createGain();
+  if(kind==='kick'){
+    const osc=audio.createOscillator();
+    osc.type='sine';osc.frequency.setValueAtTime(165,t);
+    osc.frequency.exponentialRampToValueAtTime(65,t+.12);
+    g.gain.setValueAtTime(.12*volume,t);
+    g.gain.exponentialRampToValueAtTime(.0001,t+.145);
+    osc.connect(g);g.connect(audio.destination);
+    osc.start(t);osc.stop(t+.15);return;
+  }
+  if(!rhythmNoise){
+    rhythmNoise=audio.createBuffer(1,Math.ceil(audio.sampleRate*.22),audio.sampleRate);
+    const data=rhythmNoise.getChannelData(0);
+    for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1);
+  }
+  const src=audio.createBufferSource(),filter=audio.createBiquadFilter();
+  const isSnare=kind==='snare',dur=isSnare?.105:.043;
+  src.buffer=rhythmNoise;
+  filter.type='highpass';filter.frequency.value=isSnare?1300:5500;
+  g.gain.setValueAtTime((isSnare?.09:.042)*volume,t);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  src.connect(filter);filter.connect(g);g.connect(audio.destination);
+  src.start(t);src.stop(t+dur+.01);
+}
+function musicTick(){
+  if(!musicEnabled||!audio||audio.state!=='running')return;
+  const bar=Math.floor(themeStep/8)%8,step=themeStep%8;
+  const chord=ADVENTURE_CHORDS[bar],lead=ADVENTURE_MELODY[bar][step];
+  if(lead!==null){
+    playTone(noteHz(lead),step===7?.19:.175,'triangle',.26);
+    playTone(noteHz(lead),.115,'sine',.035);
+  }
+  if(step===0||step===4){
+    const bass=step===0?chord[0]:chord[0]+7;
+    playTone(noteHz(bass),.36,'triangle',.17);
+    for(const note of chord)playTone(noteHz(note+12),.48,'sine',.066);
+    musicPerc('kick');
+  }
+  if(step===2||step===6)musicPerc('snare');
+  if(step%2===1){
+    playTone(noteHz(chord[(step+1)%3]+24),.11,'triangle',.075);
+    musicPerc('hat');
+  }
+  themeStep++;
+}
+async function beginMusicFromGesture(){
+  if(musicEnabled||musicStarting||!musicAutoStart)return musicEnabled;
+  musicStarting=true;
+  try{
+    if(!ensureAudio())throw Error('此瀏覽器不支援音訊播放');
+    if(audio.state!=='running')await audio.resume();
+    if(audio.state!=='running')throw Error('瀏覽器尚未允許音訊播放');
+    musicEnabled=true;themeStep=0;
+    clearInterval(musicTimer);
+    musicTick();musicTimer=setInterval(musicTick,ADVENTURE_STEP_MS);
+    audioStore();
+    return true;
+  }catch(e){
+    console.warn('配樂啟動失敗',e);
+    musicEnabled=false;musicAutoStart=false;
+    toast('尚未能播放配樂；請確認手機音量，或改用 Safari 開啟。',true);
+    return false;
+  }finally{musicStarting=false}
+}
+async function musicSwitch(){
+  if(musicEnabled){
+    musicEnabled=false;musicAutoStart=false;
+    clearInterval(musicTimer);musicTimer=null;
+  }else{
+    musicAutoStart=true;
+    await beginMusicFromGesture();
+  }
+  audioStore();render();
+}
 function logout(){if(st.role==='teacher')st.adminToken='';st.studentToken='';st.player=null;st.role='student';st.run=null;st.dialog=null;st.view='login';st.mode='student';render()}
 document.addEventListener('submit',async e=>{if(!['studentForm','teacherForm','renameForm','adminForm'].includes(e.target.getAttribute('id')))return;e.preventDefault();if(st.busy)return;const id=e.target.getAttribute('id'),fd=new FormData(e.target);if((id==='studentForm'||id==='teacherForm')&&musicAutoStart)beginMusicFromGesture();try{if(id==='studentForm')await loginStudent(fd);else if(id==='teacherForm')await loginTeacher(fd);else if(id==='renameForm')await renameUser(fd);else if(id==='adminForm'){const isAdd=st.dialog.kind==='adminAdd';await adminAct('rename',{cl:'PUBLIC',id:fd.get('id'),name:fd.get('name')})}}catch(e){console.error(e)}});
-document.addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b||st.busy)return;const a=b.dataset.action,v=b.dataset.value;try{switch(a){case 'login-tab':st.mode=v;render();break;case 'guest-continue':await continueGuest();break;case 'nav':st.view=v;st.dialog=null;st.run=null;if(v==='teacher')await loadTeacher();if(v==='board')await refreshRankSilently();render();break;case 'logout':logout();break;case 'map':st.map=Number(v);await start(st.map);break;case 'answer':b.classList.add('submitting');await submit(Number(v));break;case 'next':await next();break;case 'dialog-next':st.dialog=null;render();break;case 'back-map':st.dialog=null;st.view='map';st.run=null;render();break;case 'restart':st.dialog=null;await start(st.map);break;case 'leave':if(confirm('離開這張地圖？未通關分數不列入排行榜；支線使用次數仍會保留。')){st.view='map';st.run=null;render()}break;case 'side-open':openDialog('sidePick');break;case 'side-start':await startSide(v);break;case 'side-answer':await endSide(Number(v));break;case 'side-cancel':await cancelSide();break;case 'side-result-close':closeDialog();break;case 'item':await itemUse(v);break;case 'dialog-close':closeDialog();break;case 'board-tab':st.board=v;render();break;case 'board-kind':st.boardKind=v;render();break;case 'refresh':await refreshRank();toast('排行榜已更新');break;case 'rename-open':openDialog('rename');break;case 'teacher-class':st.teacherFilter=v;render();break;case 'admin-refresh':await loadTeacher();render();break;case 'admin-rename':{const u=st.teacherData.users.find(u=>u.id===v);openDialog('adminRename',{id:v,name:u?.name||''});break;}case 'admin-reset':openDialog('confirm',{action:'reset',id:v});break;case 'admin-delete':openDialog('confirm',{action:'delete',id:v});break;case 'admin-confirm':await adminAct(st.dialog.action,{cl:'PUBLIC',id:st.dialog.id});break;case 'toggle-map':await adminAct('toggle',{map:Number(v),open:!st.open[v]});break;case 'music':musicSwitch();break;case 'sfx':sfxEnabled=!sfxEnabled;audioStore();render();break;default:break}}catch(err){console.error(err)}});
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b||st.busy)return;const a=b.dataset.action,v=b.dataset.value;try{switch(a){case 'login-tab':st.mode=v;render();break;case 'guest-continue':await continueGuest();break;case 'nav':st.view=v;st.dialog=null;st.run=null;if(v==='teacher')await loadTeacher();if(v==='board')await refreshRankSilently();render();break;case 'logout':logout();break;case 'map':st.map=Number(v);await start(st.map);break;case 'answer':b.classList.add('submitting');await submit(Number(v));break;case 'next':await next();break;case 'dialog-next':st.dialog=null;render();break;case 'back-map':st.dialog=null;st.view='map';st.run=null;render();break;case 'restart':st.dialog=null;await start(st.map);break;case 'leave':if(confirm('離開這張地圖？未通關分數不列入排行榜；支線使用次數仍會保留。')){st.view='map';st.run=null;render()}break;case 'side-open':openDialog('sidePick');break;case 'side-start':await startSide(v);break;case 'side-answer':await endSide(Number(v));break;case 'side-cancel':await cancelSide();break;case 'side-result-close':closeDialog();break;case 'item':await itemUse(v);break;case 'dialog-close':closeDialog();break;case 'board-tab':st.board=v;render();break;case 'board-kind':st.boardKind=v;render();break;case 'refresh':await refreshRank();toast('排行榜已更新');break;case 'rename-open':openDialog('rename');break;case 'teacher-class':st.teacherFilter=v;render();break;case 'admin-refresh':await loadTeacher();render();break;case 'admin-rename':{const u=st.teacherData.users.find(u=>u.id===v);openDialog('adminRename',{id:v,name:u?.name||''});break;}case 'admin-reset':openDialog('confirm',{action:'reset',id:v});break;case 'admin-delete':openDialog('confirm',{action:'delete',id:v});break;case 'admin-confirm':await adminAct(st.dialog.action,{cl:'PUBLIC',id:st.dialog.id});break;case 'toggle-map':await adminAct('toggle',{map:Number(v),open:!st.open[v]});break;case 'music':await musicSwitch();break;case 'sfx':sfxEnabled=!sfxEnabled;audioStore();render();break;default:break}}catch(err){console.error(err)}});
 document.addEventListener('input',e=>{if(e.target.id==='vol'){volume=Number(e.target.value)/100;audioStore()}});
 document.addEventListener('change',e=>{if(e.target.id==='board-map-select'){st.boardMap=Number(e.target.value);render()}});
 setInterval(refreshTimer,350);
